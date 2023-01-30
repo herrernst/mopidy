@@ -123,6 +123,8 @@ class PlaybackController:
 
     def _on_end_of_stream(self):
         self.set_state(PlaybackState.STOPPED)
+        backend = self._get_backend(self.get_current_tl_track())
+        backend.playback.stop()
         if self._current_tl_track:
             self._trigger_track_playback_ended(self.get_time_position())
         self._set_current_tl_track(None)
